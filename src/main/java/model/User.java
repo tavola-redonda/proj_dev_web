@@ -1,10 +1,11 @@
 package model;
 
 public class User {
-	private String idcon;
+	private int id;
 	private String nome;
-	private String fone;
+	private String telefone;
 	private String email;
+	private String senha;
 	
 	
 	public User() {
@@ -14,21 +15,23 @@ public class User {
 	
 	
 	
-	public User(String idcon, String nome, String fone, String email) {
+	public User(int id, String nome, String telefone, String email, String senha) {
 		super();
-		this.idcon = idcon;
+		this.id = id;
 		this.nome = nome;
-		this.fone = fone;
+		this.telefone = telefone;
 		this.email = email;
+		this.senha = senha;
+
 	}
 
 
 
-	public String getIdcon() {
-		return idcon;
+	public int getId() {
+		return id;
 	}
-	public void setIdcon(String idcon) {
-		this.idcon = idcon;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getNome() {
 		return nome;
@@ -36,17 +39,29 @@ public class User {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getFone() {
-		return fone;
+	public String getTeleFone() {
+		return telefone;
 	}
-	public void setFone(String fone) {
-		this.fone = fone;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }
