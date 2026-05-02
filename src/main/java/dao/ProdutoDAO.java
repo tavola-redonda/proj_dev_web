@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import dao.ConnectionFactory;
 import java.sql.DriverManager;
 
 public class ProdutoDAO {
@@ -11,22 +12,9 @@ public class ProdutoDAO {
 	private String password = "root";
 	
 	
-	private Connection conectar() {
-		Connection con = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
-			return con;
-		} catch (Exception e) {
-			System.out.println(e);
-			return null;
-		}
-		
-	}
-	//fff
 	public void testeConexao() {
 		try {
-			Connection con = conectar();
+			Connection con = ConnectionFactory.getConnection();
 			System.out.println(con);
 			con.close();
 		} catch (Exception e) {
