@@ -1,5 +1,5 @@
 App.onReady(() => {
-  App.renderApp(`
+  App.renderApp( /* html */`
     <section>
       <h1>Login</h1>
       <form id="login-form">
@@ -31,21 +31,13 @@ App.onReady(() => {
     const user = String(data.get('user') || '')
 
     // Placeholder (sem backend): só confirma na tela
-    App.renderApp(`
+    App.renderApp( /* html */`
       <section>
         <h1>Login</h1>
-        <p>Bem-vindo, ${escapeHtml(user)}!</p>
+        <p>Bem-vindo, ${App.escapeHtml(user)}!</p>
         <p><a href="../home/">Ir para Home</a></p>
       </section>
     `)
   })
 })
 
-function escapeHtml(text) {
-  return text
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;')
-}

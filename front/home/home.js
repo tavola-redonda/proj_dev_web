@@ -1,5 +1,5 @@
 App.onReady(() => {
-  App.renderApp(`
+  App.renderApp( /* html */`
     <section>
       <h1>Home</h1>
       <p>Bem-vindo!</p>

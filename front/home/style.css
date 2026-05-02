@@ -1,1 +1,44 @@
 /* Estilos específicos da página Home */
+
+#app {
+	display: grid;
+	place-items: center;
+}
+
+#app > section {
+	width: min(var(--container), 100%);
+	padding: 28px;
+	border-radius: var(--radius);
+	border: 1px solid var(--border);
+	background: var(--surface);
+}
+
+#app > section > h1 {
+	margin-top: 0;
+}
+
+#app > section > p {
+	color: var(--muted);
+}
+
+#app > section > p + p {
+	margin-top: 16px;
+}
+
+#app > section a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 12px 14px;
+	border-radius: var(--radius-sm);
+	border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+	background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+	text-decoration: none;
+}
+
+#app > section a:hover {
+	text-decoration: none;
+	background: color-mix(in srgb, var(--accent) 16%, var(--surface));
+}
+
