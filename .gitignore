@@ -1,0 +1,7 @@
+# Tomcat local config
+.tomcat.env
+
+# Tomcat runtime artifacts (se você apontar APP_NAME para algo dentro do repo)
+logs/
+work/
+temp/

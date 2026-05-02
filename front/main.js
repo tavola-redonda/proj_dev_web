@@ -1,6 +1,9 @@
-import './style.css'
+const app = document.querySelector('#app')
+if (!app) {
+  throw new Error('Elemento #app não encontrado no HTML')
+}
 
-document.querySelector('#app').innerHTML = `
+app.innerHTML = `
 <section>
   <div>Front pronto galera</div>
 </section>
