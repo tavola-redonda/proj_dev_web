@@ -1,22 +1,27 @@
 package controller;
 
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+import jakarta.servlet.RequestDispatcher;
 import dao.ProdutoDAO;
+import model.Produto;
+import java.util.List;
 
-@WebServlet(urlPatterns = {"/Controller","/main"})
-public class Controller extends HttpServlet {
+
+
+@WebServlet(urlPatterns = {"/cardapio","/main"})
+public class ProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    ProdutoDAO produtoDAO = new ProdutoDAO();   
+    ProdutoDAO dao = new ProdutoDAO();   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Controller() {
+    public ProdutoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -24,11 +29,16 @@ public class Controller extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		produtoDAO.testeConexao();
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+        ProdutoDAO dao = new ProdutoDAO();
+        List<Produto> lista = dao.listarProdutos();
+        
+        request.setAttribute("produtos", lista);
+        System.out.println("DEBUG: Itens encontrados no banco: " + (lista != null ? lista.size() : "null"));
+
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        rd.forward(request, response);
+    }
 
 }
