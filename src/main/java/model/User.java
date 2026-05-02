@@ -1,20 +1,20 @@
 package model;
 
-public class JavaBeans {
+public class User {
 	private String idcon;
 	private String nome;
 	private String fone;
 	private String email;
 	
 	
-	public JavaBeans() {
+	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	
 	
-	public JavaBeans(String idcon, String nome, String fone, String email) {
+	public User(String idcon, String nome, String fone, String email) {
 		super();
 		this.idcon = idcon;
 		this.nome = nome;
