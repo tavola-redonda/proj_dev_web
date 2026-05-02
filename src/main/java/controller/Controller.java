@@ -6,12 +6,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import model.DAO;
+
+import dao.ProdutoDAO;
 
 @WebServlet(urlPatterns = {"/Controller","/main"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    DAO dao = new DAO();   
+    ProdutoDAO produtoDAO = new ProdutoDAO();   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -27,7 +28,7 @@ public class Controller extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		dao.testeConexao();
+		produtoDAO.testeConexao();
 	}
 
 }

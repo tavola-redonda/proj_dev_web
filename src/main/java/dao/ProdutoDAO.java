@@ -1,9 +1,9 @@
-package model;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DAO {
+public class ProdutoDAO {
 
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://127.0.0.1:3306/dbteste?useTimezone=true&serverTimezone=UTC";
