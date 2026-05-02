@@ -17,7 +17,9 @@
                 <h3>${p.nome}</h3>
                 <p>${p.descricao}</p>
                 <span>R$ ${p.preco}</span>
-                <button>Adicionar ao Carrinho</button>
+                <a href="carrinho?acao=add&id=${p.id}">
+               		<button type="button">Adicionar ao Carrinho</button>
+				</a>
             </div>
         </c:forEach>
         
