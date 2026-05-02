@@ -37,7 +37,7 @@ public class ProdutoController extends HttpServlet {
         request.setAttribute("produtos", lista);
         System.out.println("DEBUG: Itens encontrados no banco: " + (lista != null ? lista.size() : "null"));
 
-        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("cardapio.jsp");
         rd.forward(request, response);
     }
 

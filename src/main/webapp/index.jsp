@@ -1,31 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Cardápio - Loja de Comida</title>
+    <meta charset="UTF-8">
+    <title>Bem-vindo à Loja de Comida</title>
 </head>
 <body>
-    <h1>Nosso Cardápio</h1>
+    <h1>Bem-vindo à nossa Loja!</h1>
+    <p>Pronto para matar sua fome?</p>
     
-    <div class="container">
-        <c:forEach var="p" items="${produtos}">
-            <div class="card">
-                <img src="${p.imagem_url}" alt="${p.nome}">
-                <h3>${p.nome}</h3>
-                <p>${p.descricao}</p>
-                <span>R$ ${p.preco}</span>
-                <button>Adicionar ao Carrinho</button>
-            </div>
-        </c:forEach>
-        
-        <p>Quantidade de produtos encontrados: ${produtos.size()}</p>
-
-<c:if test="${empty produtos}">
-    <p style="color:red;">Atenção: A lista de produtos está vazia!</p>
-</c:if>
-    </div>
+    <a href="cardapio">
+        <button type="button">Criar Pedido</button>
+    </a>
 </body>
 </html>
