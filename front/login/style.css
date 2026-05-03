@@ -23,6 +23,15 @@
 	gap: 14px;
 }
 
+#login-error {
+	margin: 0;
+	padding: 10px 12px;
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--border);
+	background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+	color: var(--accent);
+}
+
 #login-form p {
 	margin: 0;
 }
