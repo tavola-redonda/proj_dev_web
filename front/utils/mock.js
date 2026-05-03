@@ -65,9 +65,15 @@
     return { ok: true, data: product }
   }
 
+  async function mockCheckout(cart) {
+    await delay(500)
+    return { ok: true, message: 'Compra efetuada com sucesso' }
+  }
+
   window.App.mockApi = {
     login: mockLogin,
     getCatalog: mockGetCatalog,
     getProduct: mockGetProduct,
+    checkout: mockCheckout
   }
 })()

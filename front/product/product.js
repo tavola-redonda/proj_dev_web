@@ -26,8 +26,17 @@ App.onReady(() => {
             <p class="type-badge">${App.escapeHtml(item.type)}</p>
             <p class="desc">${App.escapeHtml(item.description)}</p>
             <p class="price">R$ ${Number(item.price).toFixed(2).replace('.', ',')}</p>
+            <button id="btn-buy" style="margin-top: 15px; padding: 10px 20px; font-weight: bold; background: var(--primary-color, #ff4500); color: white; border: none; border-radius: 4px; cursor: pointer;">Comprar</button>
           </div>
         `
+
+        const btnBuy = App.qs('#btn-buy')
+        if (btnBuy) {
+          btnBuy.addEventListener('click', () => {
+            localStorage.setItem('cart', JSON.stringify([item])) // Usando array para simular um carrinho simples
+            window.location.href = '../carrinho/'
+          })
+        }
       }
       
       if (loadingEl) loadingEl.style.display = 'none'

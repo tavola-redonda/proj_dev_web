@@ -127,10 +127,28 @@
     })
   }
 
+  async function checkout(cart) {
+    if (MOCK) {
+      if (window.App.mockApi && window.App.mockApi.checkout) {
+        return window.App.mockApi.checkout(cart)
+      }
+      console.warn('MOCK ativado mas window.App.mockApi.checkout não encontrado.')
+    }
+
+    return apiFetch('/api/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cart }),
+    })
+  }
+
   window.App.api = {
     login,
     getCatalog,
     getProduct,
+    checkout,
   }
 
   window.App.apiFetch = apiFetch
