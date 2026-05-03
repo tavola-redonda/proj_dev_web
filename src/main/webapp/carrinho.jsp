@@ -44,5 +44,7 @@
     
     
     <a href="cardapio">Continuar Comprando</a>
+    <a href="index.jsp">Fechar compra</a>
+
 </body>
 </html>
