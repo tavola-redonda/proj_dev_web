@@ -2,3 +2,4 @@
 /apps/apache-tomcat*/*
 .sources.txt
 *.war
+.env
