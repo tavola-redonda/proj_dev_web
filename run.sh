@@ -23,6 +23,11 @@ if [[ ! -d "$TOMCAT_HOME" ]]; then
   exit 1
 fi
 
+if ! chmod +x "$TOMCAT_HOME/bin"/*.sh; then
+  echo "Nao foi possivel ajustar permissao em $TOMCAT_HOME/bin/*.sh" >&2
+  exit 1
+fi
+
 BUILD_DIR="$PROJECT_ROOT/build/classes"
 WEBAPP_DIR="$PROJECT_ROOT/src/main/webapp"
 LIB_DIR="$WEBAPP_DIR/WEB-INF/lib"
