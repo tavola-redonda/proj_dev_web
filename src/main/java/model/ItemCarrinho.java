@@ -1,5 +1,8 @@
 package model;
 
+import java.util.List;
+
+
 public class ItemCarrinho {
 
 	private ItemCardapio itemCardapio;
@@ -23,5 +26,13 @@ public class ItemCarrinho {
         return String.format("R$ %.2f", this.getSubtotal());
     }
     
-    
+    public static double calcularTotal(List<ItemCarrinho> carrinho) {
+        double total = 0;
+        if (carrinho != null) {
+            for (ItemCarrinho item : carrinho) {
+                total += item.getSubtotal(); 
+            }
+        }
+        return total;
+    }
 }

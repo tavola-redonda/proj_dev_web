@@ -13,13 +13,15 @@
     <div class="container">
         <c:forEach var="p" items="${produtos}">
             <div class="card">
-                <h3>${p.nome}</h3>
-                <p>${p.descricao}</p>
-                <span>R$ ${p.preco}</span>
-                <a href="carrinho?acao=add&id=${p.id}">
-               		<button type="button">Adicionar ao Carrinho</button>
-				</a>
-            </div>
+			    <h3>${p.nome}</h3>
+			    <p>${p.descricao}</p>
+			    <span>R$ ${p.preco}</span>
+			    
+			    <form action="cardapio" method="POST" style="display:inline;">
+			        <input type="hidden" name="id" value="${p.id}">
+			        <button type="submit">Adicionar ao Carrinho</button>
+			    </form>
+			</div>
         </c:forEach>
         
         <a href="carrinho">Ver carrinho atual</a>

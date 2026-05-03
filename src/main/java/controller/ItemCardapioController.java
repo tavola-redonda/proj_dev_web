@@ -3,14 +3,14 @@ package controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import jakarta.servlet.RequestDispatcher;
 import dao.ItemCardapioDAO;
 import model.ItemCardapio;
+import model.ItemCarrinho;
 import java.util.List;
+import java.util.ArrayList;
 
 
 
@@ -45,6 +45,46 @@ public class ItemCardapioController extends HttpServlet {
 
         RequestDispatcher rd = request.getRequestDispatcher("cardapio.jsp");
         rd.forward(request, response);
+    }
+    
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        
+        if (session.getAttribute("usuarioLogado") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        List<ItemCarrinho> carrinho = (List<ItemCarrinho>) session.getAttribute("carrinho");
+        if (carrinho == null) {
+            carrinho = new ArrayList<>();
+        }
+
+        int idProduto = Integer.parseInt(request.getParameter("id"));
+        boolean produtoJaExiste = false;
+
+        for (ItemCarrinho item : carrinho) {
+            if (item.getProduto().getId() == idProduto) {
+                item.setQuantidade(item.getQuantidade() + 1);
+                produtoJaExiste = true;
+                break;
+            }
+        }
+
+        if (!produtoJaExiste) {
+            ItemCardapio p = dao.buscarPorId(idProduto);
+            if (p != null) {
+                carrinho.add(new ItemCarrinho(p, 1));
+            }
+        }
+
+        session.setAttribute("carrinho", carrinho);
+        
+        
+        double valorTotal = ItemCarrinho.calcularTotal(carrinho);
+        session.setAttribute("totalPedido", valorTotal);
+        response.sendRedirect("carrinho.jsp");
     }
 
 }

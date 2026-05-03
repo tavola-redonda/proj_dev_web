@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +28,21 @@
         </c:forEach>
     </table>
     <br>
+    
+<%
+    List<model.ItemCarrinho> listaItens = (List<model.ItemCarrinho>) session.getAttribute("carrinho");
+    double somaTotal = 0;
+    if (listaItens != null) {
+        for (model.ItemCarrinho i : listaItens) {
+            somaTotal += i.getSubtotal();
+        }
+    }
+    pageContext.setAttribute("totalCalculadoNoJsp", somaTotal);
+%>
+
+<h3>Total do Pedido: R$ ${String.format("%.2f", totalCalculadoNoJsp)}</h3>
+    
+    
     <a href="cardapio">Continuar Comprando</a>
 </body>
 </html>
