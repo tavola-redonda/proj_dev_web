@@ -59,15 +59,15 @@ App.onReady(() => {
 
         let html = ''
         for (const type in grouped) {
-          `
+          html += `
             <div class="carousel-section">
               <h3>${App.escapeHtml(type)}</h3>
               <div class="carousel">
                 ${grouped[type].map(item => `
-                  <div class="card">
+                  <a href="../product/?id=${item.id}" class="card" style="text-decoration: none; color: inherit;">
                     <h4>${App.escapeHtml(item.name)}</h4>
                     <p>ID: ${item.id}</p>
-                  </div>
+                  </a>
                 `).join('')}
               </div>
             </div>

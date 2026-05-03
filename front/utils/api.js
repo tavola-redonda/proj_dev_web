@@ -114,9 +114,23 @@
     })
   }
 
+  async function getProduct(id) {
+    if (MOCK) {
+      if (window.App.mockApi && window.App.mockApi.getProduct) {
+        return window.App.mockApi.getProduct(id)
+      }
+      console.warn('MOCK ativado mas window.App.mockApi.getProduct não encontrado.')
+    }
+
+    return apiFetch(`/api/product?id=${id}`, {
+      method: 'GET',
+    })
+  }
+
   window.App.api = {
     login,
     getCatalog,
+    getProduct,
   }
 
   window.App.apiFetch = apiFetch
