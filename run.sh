@@ -28,7 +28,15 @@ if ! chmod +x "$TOMCAT_HOME/bin"/*.sh; then
   exit 1
 fi
 
-BUILD_DIR="$PROJECT_ROOT/build/classes"
+SETUP_SQL="$PROJECT_ROOT/setup.sql"
+if [[ -f "$SETUP_SQL" ]]; then
+  if ! sudo mysql < "$SETUP_SQL"; then
+    echo "Falha ao executar setup.sql" >&2
+    exit 1
+  fi
+fi
+
+BUILD_DIR="$PROJECT_ROOT/build/WEB-INF/classes"
 WEBAPP_DIR="$PROJECT_ROOT/src/main/webapp"
 LIB_DIR="$WEBAPP_DIR/WEB-INF/lib"
 WAR_NAME="proj_dev_web.war"
@@ -42,7 +50,7 @@ javac -encoding UTF-8 -d "$BUILD_DIR" \
   -classpath "$TOMCAT_HOME/lib/*:$LIB_DIR/*" \
   @"$PROJECT_ROOT/.sources.txt"
 
-jar -cvf "$WAR_PATH" -C "$WEBAPP_DIR" . -C "$BUILD_DIR" .
+jar -cvf "$WAR_PATH" -C "$WEBAPP_DIR" . -C "$PROJECT_ROOT/build" WEB-INF
 
 cp "$WAR_PATH" "$TOMCAT_HOME/webapps/"
 "$TOMCAT_HOME/bin/catalina.sh" run
