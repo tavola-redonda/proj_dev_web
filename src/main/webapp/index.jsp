@@ -12,5 +12,6 @@
     <a href="cardapio">
         <button type="button">Criar Pedido</button>
     </a>
+    <a href="logout">Sair do Sistema</a>
 </body>
 </html>

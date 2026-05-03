@@ -19,4 +19,9 @@ public class ItemCarrinho {
         return itemCardapio.getPreco() * quantidade;
     }
 	
+    public String getSubtotalFormatado() {
+        return String.format("R$ %.2f", this.getSubtotal());
+    }
+    
+    
 }

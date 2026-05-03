@@ -13,7 +13,7 @@ public class ItemCardapioDAO {
 
 	public List<ItemCardapio> listarProdutos() {
         List<ItemCardapio> itemCardapios = new ArrayList<>();
-        String sql = "SELECT * FROM produtos";
+        String sql = "SELECT * FROM itens_cardapio WHERE ativo = true";
 
         try (Connection con = ConnectionFactory.getConnection();
              PreparedStatement pst = con.prepareStatement(sql);
@@ -38,7 +38,7 @@ public class ItemCardapioDAO {
     }
 	
 	public ItemCardapio buscarPorId(int id) {
-	    String sql = "SELECT * FROM produtos WHERE id = ?";
+	    String sql = "SELECT * FROM itens_cardapio WHERE id = ?";
 	    try (Connection con = ConnectionFactory.getConnection();
 	         PreparedStatement pst = con.prepareStatement(sql)) {
 	        pst.setInt(1, id);
@@ -49,7 +49,6 @@ public class ItemCardapioDAO {
 	            p.setNome(rs.getString("nome"));
 	            p.setPreco(rs.getDouble("preco"));
                 p.setDescricao(rs.getString("descricao"));
-                p.setPreco(rs.getDouble("preco"));
                 p.setAtivo(rs.getBoolean("ativo"));
 
 	            return p;

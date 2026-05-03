@@ -22,6 +22,9 @@
             </div>
         </c:forEach>
         
+        <a href="carrinho">Ver carrinho atual</a>
+        <a href="">Avançar</a>
+       
         <p>Quantidade de produtos encontrados: ${produtos.size()}</p>
 
 <c:if test="${empty produtos}">

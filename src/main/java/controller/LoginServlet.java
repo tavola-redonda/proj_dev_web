@@ -6,7 +6,8 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import dao.UserDAO;
 import model.User;
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Servlet implementation class LoginServlet
@@ -47,11 +48,12 @@ public class LoginServlet extends HttpServlet {
             HttpSession sessao = request.getSession();
             sessao.setAttribute("usuarioLogado", usuario);
             
-            Cookie cookieNome = new Cookie("nomeUsuario", usuario.getNome());
-            cookieNome.setMaxAge(60 * 60 * 24); // Dura 24 horas
+            String nomeCodificado = URLEncoder.encode(usuario.getNome(), StandardCharsets.UTF_8.toString());
+            Cookie cookieNome = new Cookie("nomeUsuario", nomeCodificado);
+            cookieNome.setMaxAge(60 * 60 * 24); 
             response.addCookie(cookieNome);
             
-            response.sendRedirect("cardapio");
+            response.sendRedirect("index.jsp");
         } else {
             request.setAttribute("erro", "E-mail ou senha incorretos.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
