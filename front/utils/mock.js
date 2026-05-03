@@ -33,7 +33,22 @@
     }
   }
 
+  async function mockGetCatalog() {
+    await delay(300)
+    return {
+      ok: true,
+      data: [
+        { id: 1, name: 'Frango Assado Inteiro', type: 'Prato Principal' },
+        { id: 2, name: 'Frango à Passarinho', type: 'Petisco' },
+        { id: 3, name: 'Strogonoff de Frango', type: 'Prato Principal' },
+        { id: 4, name: 'Coxinha de Frango', type: 'Salgado' },
+        { id: 5, name: 'Salpicão de Frango', type: 'Acompanhamento' }
+      ]
+    }
+  }
+
   window.App.mockApi = {
     login: mockLogin,
+    getCatalog: mockGetCatalog,
   }
 })()

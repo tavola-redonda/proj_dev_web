@@ -100,8 +100,23 @@
     })
   }
 
+  async function getCatalog() {
+    if (MOCK) {
+      if (window.App.mockApi && window.App.mockApi.getCatalog) {
+        return window.App.mockApi.getCatalog()
+      }
+      console.warn('MOCK ativado mas window.App.mockApi.getCatalog não encontrado.')
+    }
+
+    // Contrato esperado do backend: GET /api/catalog (JSON)
+    return apiFetch('/api/catalog', {
+      method: 'GET',
+    })
+  }
+
   window.App.api = {
     login,
+    getCatalog,
   }
 
   window.App.apiFetch = apiFetch

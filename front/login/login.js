@@ -62,15 +62,8 @@ App.onReady(() => {
           // ignore (Storage pode estar bloqueado)
         }
 
-        const displayName = (res && res.user && res.user.displayName) || user
-
-        App.renderApp( /* html */`
-          <section>
-            <h1>Login</h1>
-            <p>Bem-vindo, ${App.escapeHtml(displayName)}!</p>
-            <p><a href="../home/">Ir para Home</a></p>
-          </section>
-        `)
+        // Redireciona para o catálogo após o login
+        window.location.href = '../catalogo/'
       } catch (err) {
         const message = App.normalizeErrorMessage(err)
         setError(message)
