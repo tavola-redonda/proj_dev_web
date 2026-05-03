@@ -211,6 +211,26 @@ input:focus {
   font-size: 0.95rem;
 }
 
+.success {
+  background: #def7ec;
+  color: #0f5132;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  border: 1px solid rgba(15, 81, 50, 0.2);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.helper {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;

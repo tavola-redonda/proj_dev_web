@@ -16,7 +16,7 @@
             <div class="brand">Seu carrinho</div>
             <div class="nav-actions">
                 <a class="button secondary" href="cardapio">Continuar comprando</a>
-                <a class="button ghost" href="index.jsp">Fechar compra</a>
+                <a class="button ghost" href="checkout.jsp">Fechar compra</a>
             </div>
         </header>
 
@@ -27,6 +27,7 @@
                     <th>Preco unit.</th>
                     <th>Qtd</th>
                     <th>Subtotal</th>
+                    <th>Acao</th>
                 </tr>
                 <c:forEach var="item" items="${sessionScope.carrinho}">
                     <tr>
@@ -34,6 +35,13 @@
                         <td>R$ ${item.produto.preco}</td>
                         <td>${item.quantidade}</td>
                         <td>${item.subtotalFormatado}</td>
+                        <td>
+                            <form action="Carrinho" method="post">
+                                <input type="hidden" name="acao" value="remove">
+                                <input type="hidden" name="id" value="${item.produto.id}">
+                                <button class="button secondary" type="submit">Remover</button>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>

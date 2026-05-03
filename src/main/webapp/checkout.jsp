@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Finalizar compra</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page">
+        <header class="topbar">
+            <div class="brand">Pagamento</div>
+            <div class="nav-actions">
+                <a class="button secondary" href="carrinho.jsp">Voltar ao carrinho</a>
+                <a class="button ghost" href="index.jsp">Inicio</a>
+            </div>
+        </header>
+
+        <section class="hero fade-in">
+            <div>
+                <h1>Dados bancarios</h1>
+                <p class="helper">Preencha para concluir o pedido. Os dados nao serao processados.</p>
+                <c:if test="${param.ok == '1'}">
+                    <div class="success" style="margin-top: 16px;">
+                        Pagamento registrado com sucesso! Redirecionando para o inicio...
+                    </div>
+                    <meta http-equiv="refresh" content="2;url=index.jsp">
+                </c:if>
+            </div>
+            <div class="form-card">
+                <h2>Informacoes do cartao</h2>
+                <form action="checkout.jsp" method="post">
+                    <input type="hidden" name="ok" value="1">
+                    <div class="field">
+                        <label for="titular">Nome do titular</label>
+                        <input id="titular" type="text" name="titular" required>
+                    </div>
+                    <div class="field">
+                        <label for="numero">Numero do cartao</label>
+                        <input id="numero" type="text" name="numero" placeholder="0000 0000 0000 0000" required>
+                    </div>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="validade">Validade</label>
+                            <input id="validade" type="text" name="validade" placeholder="MM/AA" required>
+                        </div>
+                        <div class="field">
+                            <label for="cvv">CVV</label>
+                            <input id="cvv" type="text" name="cvv" placeholder="123" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="banco">Banco</label>
+                        <input id="banco" type="text" name="banco" placeholder="Banco do Brasil" required>
+                    </div>
+                    <div class="summary" style="margin-top: 12px;">
+                        <strong>Total do pedido</strong>
+                        <span class="price">R$ ${sessionScope.totalPedido}</span>
+                    </div>
+                    <button class="button" type="submit" style="margin-top: 16px;">Confirmar pagamento</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

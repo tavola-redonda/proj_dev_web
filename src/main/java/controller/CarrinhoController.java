@@ -68,6 +68,16 @@ public class CarrinhoController extends HttpServlet {
             }
         }
 
+        if ("remove".equals(acao)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            for (int i = 0; i < carrinho.size(); i++) {
+                if (carrinho.get(i).getProduto().getId() == id) {
+                    carrinho.remove(i);
+                    break;
+                }
+            }
+        }
+
         // 4. Calcula o valor total e armazena na SESSÃO
         // Isso garante que o valor persista após o redirecionamento
         double valorTotal = ItemCarrinho.calcularTotal(carrinho);
