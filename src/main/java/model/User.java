@@ -5,8 +5,9 @@ public class User {
 	private String nome;
 	private String telefone;
 	private String email;
-	private String senha;
-	
+	private String senha_hash;
+	private String endereco;
+
 	
 	public User() {
 		super();
@@ -21,7 +22,7 @@ public class User {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
-		this.senha = senha;
+		this.senha_hash = senha;
 
 	}
 
@@ -54,14 +55,26 @@ public class User {
 
 
 
-	public String getSenha() {
-		return senha;
+	public String getSenha_hash() {
+		return senha_hash;
 	}
 
 
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setSenha_hash(String senha_hash) {
+		this.senha_hash = senha_hash;
+	}
+
+
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
 }

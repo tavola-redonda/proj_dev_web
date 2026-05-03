@@ -1,14 +1,14 @@
 package model;
 
-public class Produto {
+public class ItemCardapio {
 	private int id;
 	private String nome;
 	private String descricao;
 	private Double preco;
-	private String imagem_url;
+	private Boolean ativo;
 	
 	
-	public Produto() {}
+	public ItemCardapio() {}
 	
 	
 	public int getId() {
@@ -35,10 +35,10 @@ public class Produto {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-	public String getImagem_url() {
-		return imagem_url;
+	public Boolean getAtivo() {
+		return ativo;
 	}
-	public void setImagem_url(String imagem_url) {
-		this.imagem_url = imagem_url;
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 }

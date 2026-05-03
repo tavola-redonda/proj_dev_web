@@ -2,21 +2,21 @@ package model;
 
 public class ItemCarrinho {
 
-	private Produto produto;
+	private ItemCardapio itemCardapio;
     private int quantidade;
 
-    public ItemCarrinho(Produto produto, int quantidade) {
-        this.produto = produto;
+    public ItemCarrinho(ItemCardapio itemCardapio, int quantidade) {
+        this.itemCardapio = itemCardapio;
         this.quantidade = quantidade;
     }
 
-    public Produto getProduto() { return produto; }
-    public void setProduto(Produto produto) { this.produto = produto; }
+    public ItemCardapio getProduto() { return itemCardapio; }
+    public void setProduto(ItemCardapio itemCardapio) { this.itemCardapio = itemCardapio; }
     public int getQuantidade() { return quantidade; }
     public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
     public double getSubtotal() {
-        return produto.getPreco() * quantidade;
+        return itemCardapio.getPreco() * quantidade;
     }
 	
 }

@@ -6,8 +6,8 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import dao.ProdutoDAO;
-import model.Produto;
+import dao.ItemCardapioDAO;
+import model.ItemCardapio;
 import model.ItemCarrinho;
 
 /**
@@ -31,8 +31,8 @@ public class CarrinhoController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             
             // Aqui você deve ter um método no seu DAO para buscar UM produto pelo ID
-            ProdutoDAO dao = new ProdutoDAO();
-            Produto p = dao.buscarPorId(id); 
+            ItemCardapioDAO dao = new ItemCardapioDAO();
+            ItemCardapio p = dao.buscarPorId(id); 
 
             if (p != null) {
                 // Lógica simples: adiciona como novo item (pode ser melhorado para somar quantidade)
