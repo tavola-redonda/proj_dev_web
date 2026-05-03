@@ -16,13 +16,13 @@ public class User {
 	
 	
 	
-	public User(int id, String nome, String telefone, String email, String senha) {
+	public User(int id, String nome, String telefone, String email, String senha_hash) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
-		this.senha_hash = senha;
+		this.senha_hash = senha_hash;
 
 	}
 

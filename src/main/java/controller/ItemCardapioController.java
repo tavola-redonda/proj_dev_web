@@ -15,13 +15,13 @@ import java.util.List;
 
 
 @WebServlet(urlPatterns = {"/cardapio","/main"})
-public class ProdutoController extends HttpServlet {
+public class ItemCardapioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     ItemCardapioDAO dao = new ItemCardapioDAO();   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProdutoController() {
+    public ItemCardapioController() {
         super();
         // TODO Auto-generated constructor stub
     }

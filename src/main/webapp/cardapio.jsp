@@ -13,7 +13,6 @@
     <div class="container">
         <c:forEach var="p" items="${produtos}">
             <div class="card">
-                <img src="${p.imagem_url}" alt="${p.nome}">
                 <h3>${p.nome}</h3>
                 <p>${p.descricao}</p>
                 <span>R$ ${p.preco}</span>
