@@ -2,15 +2,16 @@ package controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import java.io.IOException;
+import dao.UserDAO;
+import model.User;
+
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/LoginServlet")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,8 +35,27 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        
+        UserDAO dao = new UserDAO();
+        User usuario = dao.validarLogin(email, senha);
+        
+        if (usuario != null) {
+
+        	
+            HttpSession sessao = request.getSession();
+            sessao.setAttribute("usuarioLogado", usuario);
+            
+            Cookie cookieNome = new Cookie("nomeUsuario", usuario.getNome());
+            cookieNome.setMaxAge(60 * 60 * 24); // Dura 24 horas
+            response.addCookie(cookieNome);
+            
+            response.sendRedirect("cardapio");
+        } else {
+            request.setAttribute("erro", "E-mail ou senha incorretos.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+    }
 
 }

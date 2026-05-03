@@ -7,6 +7,7 @@ public class User {
 	private String email;
 	private String senha_hash;
 	private String endereco;
+	private Boolean is_admin;
 
 	
 	public User() {
@@ -16,13 +17,14 @@ public class User {
 	
 	
 	
-	public User(int id, String nome, String telefone, String email, String senha_hash) {
+	public User(int id, String nome, String telefone, String email, String senha_hash, Boolean is_admin) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
 		this.senha_hash = senha_hash;
+		this.setIs_admin(is_admin);
 
 	}
 
@@ -76,5 +78,20 @@ public class User {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+
+
+
+	public Boolean getIs_admin() {
+		return is_admin;
+	}
+
+
+
+	public void setIs_admin(Boolean is_admin) {
+		this.is_admin = is_admin;
+	}
+
+
+
 
 }

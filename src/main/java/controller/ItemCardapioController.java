@@ -31,6 +31,12 @@ public class ItemCardapioController extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
+    	if (request.getSession().getAttribute("usuarioLogado") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+    	
+    	
         ItemCardapioDAO dao = new ItemCardapioDAO();
         List<ItemCardapio> lista = dao.listarProdutos();
         
