@@ -1,33 +1,60 @@
 # proj_dev_web
-Projeto da matéria desenvolvimento Web
+Projeto acadêmico desenvolvido para a disciplina de Desenvolvimento Web. Trata-se de um e-commerce focado na venda de produtos, construído sob a arquitetura clássica MVC (Model-View-Controller) utilizando Java puro.
 
-## Como rodar
+### Tecnologias Utilizadas
+* **Backend:** Java, Servlets, JSP
+* **Servidor:** Apache Tomcat 10
+* **Banco de Dados:** MySQL
+* **Padrões:** MVC, DAO, Cache HTTP
 
-Isso funciona no linux, em windows a melhor abordagem é usar o eclipse.
+---
 
-Voce vai precisar de um banco de dados MySQL tambem.
+## Mapeamento de Rotas e Segurança
 
-### 1) Descompactar o Tomcat
+O roteamento do sistema foi centralizado para direcionar o fluxo entre as requisições do navegador e as regras de negócio de forma segura:
 
-Descompacte o .zip do Tomcat em [apps/](apps):
+*  **Autenticação (`/login`)**
+  * **Servlet:** `LoginServlet` | **View:** `login.jsp` ou `index.jsp`
+  * Valida as credenciais do usuário e gerencia a criação da sessão.
+*  **Encerramento (`/logout`)**
+  * **Servlet:** `LogoutServlet` | **View:** `login.jsp`
+  * Invalida a sessão atual de forma segura e redireciona para o login.
+*  **Vitrine de Produtos (`/cardapio` ou `/main`)**
+  * **Servlet:** `ItemCardapioController` | **View:** `cardapio.jsp`
+  * Carrega os produtos do banco, exibe a vitrine e implementa cabeçalhos de **Cache HTTP** para otimização.
+*  **Carrinho de Compras (`/Carrinho`)**
+  * **Servlet:** `CarrinhoController` | **View:** `carrinho.jsp`
+  * Gerencia o estado do carrinho na sessão (adição, remoção e cálculo de subtotais).
+*  **Tratamento de Erros (`404` / `500`)**
+  * **Configuração:** `web.xml` | **Views:** `404.jsp` / `500.jsp`
+  * Captura de rotas inexistentes (404) e quebras internas de servidor (500), garantindo a continuidade da navegação.
 
-```bash
-cd apps
+---
+
+# Como Rodar o Projeto
+
+> **Nota para usuários Windows:** A abordagem recomendada é importar o projeto diretamente em uma IDE (como o **Eclipse**) e configurar o servidor Tomcat integrado.
+
+As instruções abaixo são otimizadas para ambientes **Linux**. É necessário ter o **Java JDK** e o **MySQL** instalados na máquina.
+
+### 1. Descompactar o Servidor
+Descompacte o arquivo `.zip` do Tomcat dentro do diretório `apps/`:
+```bash 
+cd apps 
 unzip apache-tomcat-10.1.54.zip
-```
 
 ### 2) Configurar o TOMCAT_HOME
 
 Edite o arquivo [.env](.env) e aponte para a pasta descompactada no seu computador:
 
 ```bash
-TOMCAT_HOME=/home/luiz/Projects/UFF/proj_dev_web/apps/apache-tomcat-10.1.54
+TOMCAT_HOME=/caminho/absoluto/para/sua/pasta/apps/apache-tomcat-10.1.54
 ```
 
 ### 3) Configurar o banco
 
-O script usa o arquivo [setup.sql](setup.sql) para criar banco, usuario e tabelas.
-Voce pode ajustar as credenciais em [.env](.env):
+O script usa o arquivo [setup.sql](setup.sql) para criar automaticamente o banco, o usuário da aplicação e as tabelas necessárias.
+Você pode ajustar as credenciais em [.env](.env):
 
 ```bash
 DB_URL=jdbc:mysql://127.0.0.1:3306/dbteste?useTimezone=true&serverTimezone=UTC
@@ -35,20 +62,20 @@ DB_USER=app
 DB_PASS=app123
 ```
 
-Usuario default do sistema:
+Usuário default do sistema:
 
 - email: admin@local
 - senha: 123
 
 ### 4) Compilar, empacotar e subir
 
-Use o script [run.sh](run.sh). Ele executa o setup do MySQL usando `sudo`:
+Com tudo configurado, utilize o script [run.sh](run.sh). Ele executará o setup do MySQL usando `sudo`:
 
 ```bash
 ./run.sh
 ```
 
-O Tomcat vai iniciar em foreground. Para acessar:
+O Tomcat iniciará em foreground. Para acessar o sistema pelo navegador, acesse a URL:
 
 ```
 http://localhost:8080/proj_dev_web/
