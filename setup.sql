@@ -42,3 +42,21 @@ SELECT 'Suco Natural', 'Suco natural de laranja 300ml', 8.00, TRUE
 WHERE NOT EXISTS (
   SELECT 1 FROM itens_cardapio WHERE nome = 'Suco Natural'
 );
+
+INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
+SELECT 'Frango Assado', 'Frango assado com porção de batatas assadas e farofa', 30.00, TRUE
+WHERE NOT EXISTS (
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Frango Assado'
+);
+
+INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
+SELECT 'Batata Frita', 'Porção de 200g de batata com molho chedar de acompanhamento', 15.90, TRUE
+WHERE NOT EXISTS (
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Suco Natural'
+);
+
+INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
+SELECT 'Pastel de Camarão', 'Porção de 8 pasteis de camarão', 32.00, TRUE
+WHERE NOT EXISTS (
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Suco Natural'
+);

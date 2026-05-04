@@ -13,13 +13,48 @@ fi
 
 TOMCAT_HOME="${TOMCAT_HOME:-}"
 
+resolve_tomcat_home() {
+  if [[ -n "${TOMCAT_HOME:-}" && -d "$TOMCAT_HOME" ]]; then
+    return 0
+  fi
+
+  local tomcat_dir
+  tomcat_dir="$(find "$PROJECT_ROOT/apps" -maxdepth 1 -type d -name 'apache-tomcat-*' | sort | head -n 1 || true)"
+  if [[ -n "$tomcat_dir" ]]; then
+    TOMCAT_HOME="$tomcat_dir"
+    echo "TOMCAT_HOME nao definido; usando $TOMCAT_HOME" >&2
+    return 0
+  fi
+
+  local tomcat_zip
+  tomcat_zip="$(find "$PROJECT_ROOT/apps" -maxdepth 1 -type f -name 'apache-tomcat-*.zip' | sort | head -n 1 || true)"
+  if [[ -n "$tomcat_zip" ]]; then
+    if ! command -v unzip >/dev/null 2>&1; then
+      echo "Tomcat encontrado em $tomcat_zip, mas o comando 'unzip' nao esta instalado." >&2
+      return 1
+    fi
+
+    unzip -q "$tomcat_zip" -d "$PROJECT_ROOT/apps"
+    tomcat_dir="${tomcat_zip%.zip}"
+    if [[ -d "$tomcat_dir" ]]; then
+      TOMCAT_HOME="$tomcat_dir"
+      echo "TOMCAT_HOME nao definido; usando $TOMCAT_HOME" >&2
+      return 0
+    fi
+  fi
+
+  return 1
+}
+
 if [[ -z "$TOMCAT_HOME" ]]; then
-  echo "TOMCAT_HOME nao definido. Ex: export TOMCAT_HOME=/caminho/para/apache-tomcat-10.1.x" >&2
-  exit 1
+  if ! resolve_tomcat_home; then
+    echo "TOMCAT_HOME nao definido. Ex: export TOMCAT_HOME=/home/usuario/projetos/proj_dev_web/apps/apache-tomcat-10.1.54" >&2
+    exit 1
+  fi
 fi
 
 if [[ ! -d "$TOMCAT_HOME" ]]; then
-  echo "TOMCAT_HOME invalido: $TOMCAT_HOME" >&2
+  echo "TOMCAT_HOME invalido: $TOMCAT_HOME. Use um caminho Linux valido no WSL." >&2
   exit 1
 fi
 

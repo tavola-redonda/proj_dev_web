@@ -7,10 +7,18 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <%
+        String mensagemSucesso = "ok".equals(request.getParameter("cadastro"))
+                ? "Usuario criado com sucesso. Agora faca login."
+                : null;
+        String mensagemErro = (String) request.getAttribute("erro");
+        String emailPreenchido = request.getParameter("email") != null ? request.getParameter("email") : "";
+    %>
     <div class="page">
         <header class="topbar">
             <div class="brand">Loja de Comida</div>
             <div class="nav-actions">
+                <a class="button ghost" href="cadastro">Criar conta</a>
                 <a class="button secondary" href="index.jsp">Voltar</a>
             </div>
         </header>
@@ -23,13 +31,16 @@
             </div>
             <div class="form-card">
                 <h2>Login</h2>
-                <c:if test="${not empty erro}">
-                    <div class="error">${erro}</div>
-                </c:if>
+                <% if (mensagemSucesso != null) { %>
+                    <div class="success"><%= mensagemSucesso %></div>
+                <% } %>
+                <% if (mensagemErro != null) { %>
+                    <div class="error"><%= mensagemErro %></div>
+                <% } %>
                 <form action="login" method="post">
                     <div class="field">
                         <label for="email">Email</label>
-                        <input id="email" type="email" name="email" required>
+                        <input id="email" type="email" name="email" value="<%= emailPreenchido %>" required>
                     </div>
                     <div class="field">
                         <label for="senha">Senha</label>
@@ -37,6 +48,7 @@
                     </div>
                     <button class="button" type="submit">Entrar</button>
                 </form>
+                <p class="helper" style="margin-top: 16px;">Ainda nao tem conta? <a href="cadastro">Crie a sua agora</a>.</p>
             </div>
         </section>
     </div>

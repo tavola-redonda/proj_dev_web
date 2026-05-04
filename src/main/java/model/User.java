@@ -45,6 +45,10 @@ public class User {
 	public String getTeleFone() {
 		return telefone;
 	}
+
+	public String getTelefone() {
+		return telefone;
+	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
@@ -61,10 +65,18 @@ public class User {
 		return senha_hash;
 	}
 
+	public String getSenhaHash() {
+		return senha_hash;
+	}
+
 
 
 	public void setSenha_hash(String senha_hash) {
 		this.senha_hash = senha_hash;
+	}
+
+	public void setSenhaHash(String senhaHash) {
+		this.senha_hash = senhaHash;
 	}
 
 

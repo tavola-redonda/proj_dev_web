@@ -35,7 +35,7 @@ O roteamento do sistema foi centralizado para direcionar o fluxo entre as requis
 
 > **Nota para usuários Windows:** A abordagem recomendada é importar o projeto diretamente em uma IDE (como o **Eclipse**) e configurar o servidor Tomcat integrado.
 
-As instruções abaixo são otimizadas para ambientes **Linux**. É necessário ter o **Java JDK** e o **MySQL** instalados na máquina.
+As instruções abaixo são otimizadas para ambientes **Linux/WSL**. É necessário ter o **Java JDK** e o **MySQL** instalados na máquina.
 
 ### 1. Descompactar o Servidor
 Descompacte o arquivo `.zip` do Tomcat dentro do diretório `apps/`:
@@ -45,11 +45,13 @@ unzip apache-tomcat-10.1.54.zip
 
 ### 2) Configurar o TOMCAT_HOME
 
-Edite o arquivo [.env](.env) e aponte para a pasta descompactada no seu computador:
+Edite o arquivo [.env](.env) e aponte para a pasta descompactada no seu ambiente Linux/WSL:
 
 ```bash
-TOMCAT_HOME=/caminho/absoluto/para/sua/pasta/apps/apache-tomcat-10.1.54
+TOMCAT_HOME=/home/seu-usuario/projects/proj_dev_web/apps/apache-tomcat-10.1.54
 ```
+
+Se você mantiver o arquivo `apps/apache-tomcat-10.1.54.zip`, o script `run.sh` tenta descompactar e usar essa distribuição automaticamente.
 
 ### 3) Configurar o banco
 
