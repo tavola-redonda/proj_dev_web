@@ -4,6 +4,7 @@ public class ItemCardapio {
 	private int id;
 	private String nome;
 	private String descricao;
+	private String categoria;
 	private Double preco;
 	private Boolean ativo;
 	
@@ -28,6 +29,12 @@ public class ItemCardapio {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 	public Double getPreco() {
 		return preco;

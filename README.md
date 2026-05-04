@@ -3,9 +3,52 @@ Projeto acadêmico desenvolvido para a disciplina de Desenvolvimento Web. Trata-
 
 ### Tecnologias Utilizadas
 * **Backend:** Java, Servlets, JSP
-* **Servidor:** Apache Tomcat 10
+* **Servidor:** Apache Tomcat 10.1
 * **Banco de Dados:** MySQL
 * **Padrões:** MVC, DAO, Cache HTTP
+
+---
+
+# Rodar com Docker
+
+Este é o caminho recomendado. Você não precisa instalar Tomcat, MySQL nem JDK na máquina. Basta ter Docker e Docker Compose.
+
+### 1. Subir tudo
+
+Na raiz do projeto, execute:
+
+```bash
+docker compose up --build
+```
+
+### 2. Acessar a aplicação
+
+Depois que os containers subirem, abra:
+
+```text
+http://localhost:8080/proj_dev_web/
+```
+
+### 3. Credenciais iniciais
+
+O banco sobe com os dados do arquivo [setup.sql](setup.sql):
+
+* email: `admin@local`
+* senha: `123`
+
+### 4. Parar e limpar
+
+Para parar os containers:
+
+```bash
+docker compose down
+```
+
+Para parar e remover o volume do banco:
+
+```bash
+docker compose down -v
+```
 
 ---
 
@@ -31,7 +74,7 @@ O roteamento do sistema foi centralizado para direcionar o fluxo entre as requis
 
 ---
 
-# Como Rodar o Projeto
+# Como Rodar sem Docker
 
 > **Nota para usuários Windows:** A abordagem recomendada é importar o projeto diretamente em uma IDE (como o **Eclipse**) e configurar o servidor Tomcat integrado.
 

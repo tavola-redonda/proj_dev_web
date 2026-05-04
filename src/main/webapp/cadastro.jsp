@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Criar conta - Loja de Comida</title>
+    <title>Criar conta - Casa do Frango</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,13 +16,14 @@
     %>
     <div class="page">
         <header class="topbar">
-            <div class="brand">Loja de Comida</div>
+            <div class="brand">Casa do Frango</div>
             <div class="nav-actions">
-                <a class="button secondary" href="login.jsp">Voltar ao login</a>
+                <a class="button secondary" href="login.jsp">Login</a>
+                <a class="button ghost" href="index.jsp">Inicio</a>
             </div>
         </header>
 
-        <section class="hero fade-in" style="justify-items: start;">
+        <section class="hero auth-hero fade-in">
             <div>
                 <span class="badge">Novo cadastro</span>
                 <h1>Crie sua conta</h1>
