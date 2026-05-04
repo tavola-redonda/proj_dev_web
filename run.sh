@@ -28,9 +28,27 @@ if ! chmod +x "$TOMCAT_HOME/bin"/*.sh; then
   exit 1
 fi
 
+DB_USER="${DB_USER:-app}"
+DB_PASS="${DB_PASS:-app123}"
+DB_NAME="${DB_NAME:-dbteste}"
+
+# Create dynamic SQL to set up user from .env variables
+DYNAMIC_SQL=$(cat <<EOF
+CREATE DATABASE IF NOT EXISTS \`$DB_NAME\`;
+CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
+GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$DB_USER'@'localhost';
+FLUSH PRIVILEGES;
+EOF
+)
+
+if ! echo "$DYNAMIC_SQL" | sudo mysql; then
+  echo "Falha ao criar usuario e banco de dados" >&2
+  exit 1
+fi
+
 SETUP_SQL="$PROJECT_ROOT/setup.sql"
 if [[ -f "$SETUP_SQL" ]]; then
-  if ! sudo mysql < "$SETUP_SQL"; then
+  if ! sudo mysql "$DB_NAME" < "$SETUP_SQL"; then
     echo "Falha ao executar setup.sql" >&2
     exit 1
   fi

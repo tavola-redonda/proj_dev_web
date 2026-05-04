@@ -1,10 +1,5 @@
-CREATE DATABASE IF NOT EXISTS dbteste;
-
-CREATE USER IF NOT EXISTS 'app'@'localhost' IDENTIFIED BY 'app123';
-GRANT ALL PRIVILEGES ON dbteste.* TO 'app'@'localhost';
-FLUSH PRIVILEGES;
-
-USE dbteste;
+-- Database and users are now created by run.sh using .env variables
+-- This file contains only the schema and initial data
 
 CREATE TABLE IF NOT EXISTS usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,
