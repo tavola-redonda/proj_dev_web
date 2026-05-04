@@ -52,11 +52,11 @@ WHERE NOT EXISTS (
 INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
 SELECT 'Batata Frita', 'Porção de 200g de batata com molho chedar de acompanhamento', 15.90, TRUE
 WHERE NOT EXISTS (
-  SELECT 1 FROM itens_cardapio WHERE nome = 'Suco Natural'
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Batata Frita'
 );
 
 INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
 SELECT 'Pastel de Camarão', 'Porção de 8 pasteis de camarão', 32.00, TRUE
 WHERE NOT EXISTS (
-  SELECT 1 FROM itens_cardapio WHERE nome = 'Suco Natural'
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Pastel de Camarão'
 );

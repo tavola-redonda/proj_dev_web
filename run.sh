@@ -4,11 +4,45 @@ set -euo pipefail
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ENV_FILE="$PROJECT_ROOT/.env"
 
+load_env_file() {
+  local env_file="$1"
+  local line key value
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    line="${line%$'\r'}"
+
+    if [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]]; then
+      continue
+    fi
+
+    if [[ "$line" == export\ * ]]; then
+      line="${line#export }"
+    fi
+
+    if [[ "$line" != *"="* ]]; then
+      continue
+    fi
+
+    key="${line%%=*}"
+    value="${line#*=}"
+
+    key="${key//[[:space:]]/}"
+
+    if [[ "$key" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+      if [[ "$value" == '"'*'"' && ${#value} -ge 2 ]]; then
+        value="${value:1:-1}"
+      elif [[ "$value" == "'"*"'" && ${#value} -ge 2 ]]; then
+        value="${value:1:-1}"
+      fi
+
+      printf -v "$key" '%s' "$value"
+      export "$key"
+    fi
+  done < "$env_file"
+}
+
 if [[ -f "$ENV_FILE" ]]; then
-  set -a
-  # shellcheck disable=SC1090
-  source "$ENV_FILE"
-  set +a
+  load_env_file "$ENV_FILE"
 fi
 
 TOMCAT_HOME="${TOMCAT_HOME:-}"
@@ -51,11 +85,11 @@ if [[ -z "$TOMCAT_HOME" ]]; then
     echo "TOMCAT_HOME nao definido. Ex: export TOMCAT_HOME=/home/usuario/projetos/proj_dev_web/apps/apache-tomcat-10.1.54" >&2
     exit 1
   fi
-fi
-
-if [[ ! -d "$TOMCAT_HOME" ]]; then
-  echo "TOMCAT_HOME invalido: $TOMCAT_HOME. Use um caminho Linux valido no WSL." >&2
-  exit 1
+elif [[ ! -d "$TOMCAT_HOME" ]]; then
+  if ! resolve_tomcat_home; then
+    echo "TOMCAT_HOME invalido no .env: $TOMCAT_HOME. Use um caminho Linux valido no WSL ou remova a variavel para autodeteccao." >&2
+    exit 1
+  fi
 fi
 
 if ! chmod +x "$TOMCAT_HOME/bin"/*.sh; then
