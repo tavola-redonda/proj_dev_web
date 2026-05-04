@@ -21,7 +21,13 @@
                         <span>Pedido de</span>
                         <strong><%= nomeUsuario %></strong>
                     </div>
+                    <a class="button secondary" href="perfil">Perfil</a>
+                    <a class="button ghost" href="historico-pedidos">Pedidos</a>
+                    <a class="button ghost" href="Carrinho">Carrinho</a>
                     <a class="button secondary" href="logout">Sair</a>
+                <% } else { %>
+                    <a class="button secondary" href="login.jsp">Login</a>
+                    <a class="button ghost" href="cadastro">Sign in</a>
                 <% } %>
             </div>
         </header>
@@ -36,6 +42,9 @@
                         <% if (nomeUsuario == null) { %>
                             <a class="button secondary" href="login.jsp">Login</a>
                             <a class="button ghost" href="cadastro">Sign in</a>
+                        <% } else { %>
+                            <a class="button secondary" href="perfil">Perfil</a>
+                            <a class="button ghost" href="historico-pedidos">Pedidos</a>
                         <% } %>
                     </div>
                 </div>

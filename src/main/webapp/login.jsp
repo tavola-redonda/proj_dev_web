@@ -19,7 +19,7 @@
             <div class="brand">Casa do Frango</div>
             <div class="nav-actions">
                 <a class="button ghost" href="cadastro">Sign in</a>
-                <a class="button secondary" href="index.jsp">Voltar</a>
+                <a class="button secondary" href="index.jsp">Inicio</a>
             </div>
         </header>
 

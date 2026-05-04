@@ -17,7 +17,29 @@ CREATE TABLE IF NOT EXISTS itens_cardapio (
   descricao TEXT,
   preco DECIMAL(10,2) NOT NULL,
   ativo BOOLEAN DEFAULT TRUE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS pedidos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT NOT NULL,
+  endereco_entrega VARCHAR(255) NOT NULL,
+  total DECIMAL(10,2) NOT NULL,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_pedidos_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS pedido_itens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  pedido_id INT NOT NULL,
+  item_cardapio_id INT NOT NULL,
+  nome_item VARCHAR(120) NOT NULL,
+  categoria_item VARCHAR(60) NOT NULL,
+  quantidade INT NOT NULL,
+  preco_unitario DECIMAL(10,2) NOT NULL,
+  subtotal DECIMAL(10,2) NOT NULL,
+  CONSTRAINT fk_pedido_itens_pedido FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE,
+  CONSTRAINT fk_pedido_itens_cardapio FOREIGN KEY (item_cardapio_id) REFERENCES itens_cardapio(id) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO usuarios (nome, telefone, email, senha_hash, endereco, is_admin)
 SELECT 'Admin', '0000000000', 'admin@local', '123', 'Endereco padrao', TRUE
@@ -59,4 +81,34 @@ INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
 SELECT 'Pastel de Camarão', 'Porção de 8 pasteis de camarão', 32.00, TRUE
 WHERE NOT EXISTS (
   SELECT 1 FROM itens_cardapio WHERE nome = 'Pastel de Camarão'
+);
+
+INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
+SELECT 'Refrigerante de Cola', 'Refrigerante gelado 350ml', 9.50, TRUE
+WHERE NOT EXISTS (
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Refrigerante de Cola'
+);
+
+INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
+SELECT 'Agua com Gas', 'Agua mineral com gas 500ml', 6.00, TRUE
+WHERE NOT EXISTS (
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Agua com Gas'
+);
+
+INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
+SELECT 'Pudim de Leite', 'Pudim caseiro com calda de caramelo', 12.90, TRUE
+WHERE NOT EXISTS (
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Pudim de Leite'
+);
+
+INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
+SELECT 'Brownie com Sorvete', 'Brownie de chocolate com sorvete de creme', 16.90, TRUE
+WHERE NOT EXISTS (
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Brownie com Sorvete'
+);
+
+INSERT INTO itens_cardapio (nome, descricao, preco, ativo)
+SELECT 'Torta de Limão', 'Torta cremosa com cobertura de limão', 14.50, TRUE
+WHERE NOT EXISTS (
+  SELECT 1 FROM itens_cardapio WHERE nome = 'Torta de Limão'
 );

@@ -9,8 +9,10 @@ import jakarta.servlet.RequestDispatcher;
 import dao.ItemCardapioDAO;
 import model.ItemCardapio;
 import model.ItemCarrinho;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 
@@ -43,8 +45,21 @@ public class ItemCardapioController extends HttpServlet {
     	
         ItemCardapioDAO dao = new ItemCardapioDAO();
         List<ItemCardapio> lista = dao.listarProdutos();
+            Map<String, List<ItemCardapio>> produtosPorCategoria = new LinkedHashMap<>();
+            produtosPorCategoria.put("Pratos principais", new ArrayList<>());
+            produtosPorCategoria.put("Bebidas", new ArrayList<>());
+            produtosPorCategoria.put("Sobremesas", new ArrayList<>());
+
+            for (ItemCardapio produto : lista) {
+                String categoria = produto.getCategoria();
+                if (!produtosPorCategoria.containsKey(categoria)) {
+                    produtosPorCategoria.put(categoria, new ArrayList<>());
+                }
+                produtosPorCategoria.get(categoria).add(produto);
+            }
         
         request.setAttribute("produtos", lista);
+            request.setAttribute("produtosPorCategoria", produtosPorCategoria);
         System.out.println("DEBUG: Itens encontrados no banco: " + (lista != null ? lista.size() : "null"));
 
         RequestDispatcher rd = request.getRequestDispatcher("cardapio.jsp");
@@ -66,11 +81,22 @@ public class ItemCardapioController extends HttpServlet {
         }
 
         int idProduto = Integer.parseInt(request.getParameter("id"));
+        int quantidade = 1;
+        try {
+            quantidade = Integer.parseInt(request.getParameter("quantidade"));
+        } catch (NumberFormatException ignored) {
+            quantidade = 1;
+        }
+
+        if (quantidade < 1) {
+            quantidade = 1;
+        }
+
         boolean produtoJaExiste = false;
 
         for (ItemCarrinho item : carrinho) {
             if (item.getProduto().getId() == idProduto) {
-                item.setQuantidade(item.getQuantidade() + 1);
+                item.setQuantidade(item.getQuantidade() + quantidade);
                 produtoJaExiste = true;
                 break;
             }
@@ -79,7 +105,7 @@ public class ItemCardapioController extends HttpServlet {
         if (!produtoJaExiste) {
             ItemCardapio p = dao.buscarPorId(idProduto);
             if (p != null) {
-                carrinho.add(new ItemCarrinho(p, 1));
+                carrinho.add(new ItemCarrinho(p, quantidade));
             }
         }
 

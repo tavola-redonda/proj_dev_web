@@ -5,10 +5,34 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import model.User;
 import util.PasswordUtil;
-import model.User;
 
 
 public class UserDAO {
+
+    public User buscarPorId(int id) {
+        String sql = "SELECT * FROM usuarios WHERE id = ?";
+
+        try (Connection con = ConnectionFactory.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setInt(1, id);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    User u = new User();
+                    u.setId(rs.getInt("id"));
+                    u.setNome(rs.getString("nome"));
+                    u.setEmail(rs.getString("email"));
+                    u.setTelefone(rs.getString("telefone"));
+                    u.setEndereco(rs.getString("endereco"));
+                    u.setIs_admin(rs.getBoolean("is_admin"));
+                    return u;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public boolean emailJaCadastrado(String email) {
         String sql = "SELECT 1 FROM usuarios WHERE email = ?";
@@ -39,6 +63,23 @@ public class UserDAO {
             pst.setString(4, usuario.getSenhaHash());
             pst.setString(5, usuario.getEndereco());
             pst.setBoolean(6, Boolean.TRUE.equals(usuario.getIs_admin()));
+
+            return pst.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean atualizarPerfil(User usuario) {
+        String sql = "UPDATE usuarios SET nome = ?, endereco = ? WHERE id = ?";
+
+        try (Connection con = ConnectionFactory.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+
+            pst.setString(1, usuario.getNome());
+            pst.setString(2, usuario.getEndereco());
+            pst.setInt(3, usuario.getId());
 
             return pst.executeUpdate() > 0;
         } catch (Exception e) {
