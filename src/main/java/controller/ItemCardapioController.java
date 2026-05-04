@@ -20,6 +20,8 @@ import java.util.Map;
 public class ItemCardapioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     ItemCardapioDAO dao = new ItemCardapioDAO();   
+    private static final int LIMITE_POR_ITEM = 20;
+    private static final int LIMITE_TOTAL_ITENS = 30;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -92,6 +94,34 @@ public class ItemCardapioController extends HttpServlet {
             quantidade = 1;
         }
 
+        ItemCardapio produtoSelecionado = dao.buscarPorId(idProduto);
+        if (produtoSelecionado == null) {
+            session.setAttribute("erroCardapio", "Nao foi possivel localizar o item selecionado.");
+            response.sendRedirect("cardapio");
+            return;
+        }
+
+        int quantidadeAtualDoItem = 0;
+        int totalItensCarrinho = 0;
+        for (ItemCarrinho item : carrinho) {
+            totalItensCarrinho += item.getQuantidade();
+            if (item.getProduto().getId() == idProduto) {
+                quantidadeAtualDoItem = item.getQuantidade();
+            }
+        }
+
+        if (quantidadeAtualDoItem + quantidade > LIMITE_POR_ITEM) {
+            session.setAttribute("erroCardapio", "Cada item pode ter no maximo " + LIMITE_POR_ITEM + " unidades.");
+            response.sendRedirect("cardapio");
+            return;
+        }
+
+        if (totalItensCarrinho + quantidade > LIMITE_TOTAL_ITENS) {
+            session.setAttribute("erroCardapio", "O carrinho pode ter no maximo " + LIMITE_TOTAL_ITENS + " itens no total.");
+            response.sendRedirect("cardapio");
+            return;
+        }
+
         boolean produtoJaExiste = false;
 
         for (ItemCarrinho item : carrinho) {
@@ -103,13 +133,11 @@ public class ItemCardapioController extends HttpServlet {
         }
 
         if (!produtoJaExiste) {
-            ItemCardapio p = dao.buscarPorId(idProduto);
-            if (p != null) {
-                carrinho.add(new ItemCarrinho(p, quantidade));
-            }
+            carrinho.add(new ItemCarrinho(produtoSelecionado, quantidade));
         }
 
         session.setAttribute("carrinho", carrinho);
+        session.removeAttribute("erroCardapio");
         
         
         double valorTotal = ItemCarrinho.calcularTotal(carrinho);

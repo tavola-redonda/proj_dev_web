@@ -18,7 +18,7 @@
     <div class="page">
         <header class="topbar">
             <div class="brand">Casa do Frango</div>
-            <div class="nav-actions">
+            <div class="nav-actions nav-actions-spread">
                 <% if (nomeUsuario != null) { %>
                     <div class="user-chip">
                         <span>Pedido de</span>
@@ -38,6 +38,15 @@
 
         <section class="fade-in">
             <div class="badge">${produtos.size()} itens disponiveis</div>
+            <%
+                String erroCardapio = (String) session.getAttribute("erroCardapio");
+                if (erroCardapio != null) {
+            %>
+                <div class="error" style="margin-top: 16px;"><%= erroCardapio %></div>
+            <%
+                    session.removeAttribute("erroCardapio");
+                }
+            %>
 
             <c:forEach var="entry" items="${produtosPorCategoria}">
                 <c:if test="${not empty entry.value}">
@@ -51,14 +60,13 @@
                                 <div class="card">
                                     <h3>${p.nome}</h3>
                                     <p>${p.descricao}</p>
-                                    <span class="badge">${p.categoria}</span>
                                     <span class="price">R$ <fmt:formatNumber value="${p.preco}" minFractionDigits="2" maxFractionDigits="2"/></span>
                                     <form action="cardapio" method="POST" class="card-form">
                                         <input type="hidden" name="id" value="${p.id}">
                                         <div class="card-footer">
                                             <label class="quantity-control" for="quantidade-${p.id}">
                                                 <span class="helper">Quantidade</span>
-                                                <input id="quantidade-${p.id}" class="quantity-input" type="number" name="quantidade" min="1" value="1">
+                                                <input id="quantidade-${p.id}" class="quantity-input" type="number" name="quantidade" min="1" max="20" value="1">
                                             </label>
                                             <button class="button" type="submit">Adicionar</button>
                                         </div>

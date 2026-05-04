@@ -22,7 +22,7 @@
     <div class="page">
         <header class="topbar">
             <div class="brand">Casa do Frango</div>
-            <div class="nav-actions">
+            <div class="nav-actions nav-actions-spread">
                 <% if (usuarioLogado != null) { %>
                     <div class="user-chip">
                         <span>Pedido de</span>

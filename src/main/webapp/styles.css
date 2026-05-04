@@ -79,6 +79,12 @@ a {
   flex-wrap: wrap;
 }
 
+.nav-actions-spread {
+  justify-content: flex-end;
+  max-width: min(100%, 900px);
+  gap: 14px 16px;
+}
+
 .user-chip {
   display: flex;
   flex-direction: column;
@@ -557,6 +563,11 @@ input:focus {
 
   .nav-actions {
     width: 100%;
+    justify-content: flex-start;
+  }
+
+  .nav-actions-spread {
+    max-width: 100%;
     justify-content: flex-start;
   }
 
