@@ -35,7 +35,11 @@ public class ItemCardapioController extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
-    	
+
+        // Configuração de Cache HTTP exigida pelo projeto (Adição - Caio Bastos)
+        response.setHeader("Cache-Control", "max-age=3600, public");
+        response.setHeader("Pragma", "cache");
+        response.setDateHeader("Expires", System.currentTimeMillis() + 3600000);
     	
         ItemCardapioDAO dao = new ItemCardapioDAO();
         List<ItemCardapio> lista = dao.listarProdutos();
